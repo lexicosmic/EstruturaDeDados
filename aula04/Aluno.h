@@ -8,34 +8,38 @@ using namespace std;
 
 class Aluno
 {
-    public:
-        Aluno(string n, string m);
-        ~Aluno();
+public:
+    Aluno(string n, string m);
+    ~Aluno();
 
-        // operacoes
-        void setNome(string n);
-        string getNome();
+    // operacoes
+    void setNome(string n);
+    string getNome();
 
-        // exercicio 1
-        void leNotas();
-        double calculaMedia();
+    // exercicio 1
+    void leNotas();
+    double calculaMedia();
 
-        // exercicio 2
-        // implemente aqui
+    // exercicio 2
+    void setIdade(int ida);
+    int getIdade();
 
-        // exercicio 5
-        // implemente aqui
+    void setMatricula(string mat);
+    string getMatricula();
 
-    private:
-        int idade;
-        string nome, matricula;
-        double notas[7];
+    // exercicio 5
+    // implemente aqui
 
-        // exercicio 3
-        // implemente aqui
+private:
+    int idade;
+    string nome, matricula;
+    double notas[7];
 
-        // exercicio 4
-        // implemente aqui
+    // exercicio 3
+    // implemente aqui
+
+    // exercicio 4
+    // implemente aqui
 };
 
 #endif // ALUNO_H_INCLUDED
