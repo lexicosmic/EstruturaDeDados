@@ -8,10 +8,10 @@ int main()
     int idade;
     string matricula, nome;
 
-    //Aluno aluno("Andre", "2022010005");
-    //aluno.leNotas();
+    // Aluno aluno("Andre", "2022010005");
+    // aluno.leNotas();
 
-    //cout << "Media: " << aluno.calculaMedia() << endl;
+    // cout << "Media: " << aluno.calculaMedia() << endl;
 
     // INTERFACE
     cout << "== CADASTRO DO ALUNO ==" << endl;
@@ -26,10 +26,10 @@ int main()
     aluno.setIdade(idade);
     aluno.setMatricula(matricula);
 
-    cout << endl << "== REGISTRO DO ALUNO ==" << endl;
-    cout << "Nome: " << aluno.getNome() << endl;
-    cout << "Idade: " << aluno.getIdade() << endl;
-    cout << "Matricula: " << aluno.getMatricula() << endl;
+    aluno.leFrequencia();
+    aluno.leNotas();
+
+    aluno.relatorio();
 
     return 0;
 }

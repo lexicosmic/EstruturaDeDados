@@ -18,19 +18,18 @@ Aluno::~Aluno()
 
 void Aluno::leNotas()
 {
-    for(int i = 0; i < 7; i++)
+    for (int i = 0; i < 7; i++)
     {
         cout << "Digite a " << i + 1 << "ª nota: ";
         cin >> notas[i];
     }
-
 }
 
 double Aluno::calculaMedia()
 {
     double soma = 0;
 
-    for(int i = 0; i < 7; i++)
+    for (int i = 0; i < 7; i++)
     {
         soma += notas[i];
     }
@@ -77,4 +76,53 @@ string Aluno::getMatricula()
 // Exercicio 3
 // ----------------------------------------------------------------------------
 
-// Implemente aqui sua solucao
+void Aluno::printDados()
+{
+    cout << endl
+         << "== REGISTRO DO ALUNO ==" << endl;
+    cout << "Nome: " << nome << endl;
+    cout << "Idade: " << idade << endl;
+    cout << "Matricula: " << matricula << endl;
+}
+
+// ----------------------------------------------------------------------------
+// Exercicio 5
+// ----------------------------------------------------------------------------
+
+void Aluno::leFrequencia()
+{
+    cout << "Digite a Frequência de cada disciplina:" << endl;
+    for (int i = 0; i < 7; i++)
+    {
+        cout << i + 1 << "a: ";
+        cin >> frequencia[i];
+    }
+}
+
+// ----------------------------------------------------------------------------
+// Exercicio 6
+// ----------------------------------------------------------------------------
+
+void Aluno::relatorio()
+{
+    cout << "== RELATORIO ==" << endl;
+    cout << "Nome: " << nome << endl;
+    cout << "Idade: " << idade << endl;
+    cout << "Matricula: " << matricula << endl;
+    for (int i = 0; i < 7; i++)
+    {
+        cout << "Disciplina " << i + 1 << endl;
+        cout << "  ";
+        if (frequencia[i])
+            cout << "Frequente";
+        else
+            cout << "Infrequente";
+        cout << endl;
+        cout << "  ";
+        if (notas[i] >= 60)
+            cout << "Aprovado";
+        else
+            cout << "Reprovado";
+        cout << endl;
+    }
+}
