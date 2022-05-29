@@ -8,7 +8,7 @@ using namespace std;
 int main()
 {
     MatrizDiag mat(NUM);
-    for (int i = 0; i < 7; i++)
+    for (int i = 0; i < NUM; i++)
     {
         mat.set(i, i, i);
     }
