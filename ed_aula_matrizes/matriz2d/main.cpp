@@ -13,6 +13,7 @@ int main()
             cin >> val;
             mat.set(i, j, val);
         }
+    cout << endl;
     for (int i = 0; i < 5; i++)
     {
         cout << mat.get(i, 3) << endl;
