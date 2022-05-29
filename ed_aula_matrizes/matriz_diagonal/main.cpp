@@ -16,6 +16,7 @@ int main()
     // mat.get(-5, 0);
     // mat.get(0, NUM);
     // mat.set(1, 2, 9);
+    // mat.set(2, 4, 0);
 
     for (int i = 0; i < NUM; i++)
     {
