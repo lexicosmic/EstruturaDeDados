@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Aluno.h"
+#include "Prova.h"
 
 using namespace std;
 
@@ -26,10 +27,18 @@ int main()
     aluno.setIdade(idade);
     aluno.setMatricula(matricula);
 
-    aluno.leFrequencia();
-    aluno.leNotas();
+    // aluno.leFrequencia();
+    // aluno.leNotas();
 
     aluno.relatorio();
+
+    Prova prova(5);
+
+    prova.leNotas();
+
+    prova.calculaNotaFinal();
+
+    cout << "Nota Final:  " << prova.obtemNotaFinal() << endl;
 
     return 0;
 }
