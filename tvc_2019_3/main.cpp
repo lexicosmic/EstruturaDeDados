@@ -1,3 +1,10 @@
+// TEMPO
+// Q1 - 22 minutos e 34 segundos
+// Q2 - 1 hora, 16 minutos e 21 segundos
+// Q3 - 1 hora, 00 minutos e 21 segundos
+// Q4 - 35 minutos e 10 segundos
+// Total - 3 horas, 14 minutos e 26 segundos
+
 #include <iostream>
 #include <cstdlib>
 #include <cmath>
