@@ -17,7 +17,7 @@ int ArvBin::getRaiz()
         return raiz->getInfo();
     else
     {
-        cout << "Árvore vazia!" << endl;
+        cout << "ï¿½rvore vazia!" << endl;
         exit(1);
     }
 }
@@ -38,7 +38,7 @@ void ArvBin::anulaRaiz()
 
 void ArvBin::montaArvore()
 {
-    if(!vazia())
+    if (!vazia())
         cout << "Arvore jah montada. So eh possivel a insercao de nos." << endl;
     else
     {
@@ -47,12 +47,12 @@ void ArvBin::montaArvore()
     }
 }
 
-NoArv* ArvBin::auxMontaArvore()
+NoArv *ArvBin::auxMontaArvore()
 {
     string linha;
     cout << "Valor: ";
     cin >> linha;
-    if(linha != "NULL" && linha != "null")
+    if (linha != "NULL" && linha != "null")
     {
         istringstream ent(linha);
         int valor;
@@ -76,9 +76,9 @@ void ArvBin::insere(int x)
     raiz = auxInsere(raiz, x);
 }
 
-NoArv* ArvBin::auxInsere(NoArv *p, int x)
+NoArv *ArvBin::auxInsere(NoArv *p, int x)
 {
-    if(p == NULL)
+    if (p == NULL)
     {
         p = new NoArv();
         p->setInfo(x);
@@ -90,7 +90,7 @@ NoArv* ArvBin::auxInsere(NoArv *p, int x)
         char direcao;
         cout << x << " a esquerda (e) ou direita (d) de " << p->getInfo() << ": ";
         cin >> direcao;
-        if(direcao == 'e' || direcao == 'E')
+        if (direcao == 'e' || direcao == 'E')
             p->setEsq(auxInsere(p->getEsq(), x));
         else
             p->setDir(auxInsere(p->getDir(), x));
@@ -125,7 +125,7 @@ ArvBin::~ArvBin()
     raiz = libera(raiz);
 }
 
-NoArv* ArvBin::libera(NoArv *p)
+NoArv *ArvBin::libera(NoArv *p)
 {
     if (p != NULL)
     {
@@ -152,3 +152,52 @@ void ArvBin::auxPreOrdem(NoArv *p)
         auxPreOrdem(p->getDir());
     }
 }
+
+// Ex01
+int ArvBin::auxContaNos(NoArv *p)
+{
+    if (p == NULL)
+        return 0;
+    else
+    {
+        int nNosEsq = auxContaNos(p->getEsq());
+        int nNosDir = auxContaNos(p->getDir());
+        return 1 + nNosEsq + nNosDir;
+    }
+}
+int ArvBin::contaNos() { return auxContaNos(raiz); }
+
+// Ex02
+int ArvBin::auxContaNosFolhas(NoArv *p)
+{
+    if (p == NULL)
+        return 0;
+    else
+    {
+        NoArv *esq = p->getEsq();
+        NoArv *dir = p->getDir();
+        int nFolhasEsq = auxContaNosFolhas(esq);
+        int nFolhasDir = auxContaNosFolhas(dir);
+        if (esq == NULL & dir == NULL)
+            return 1;
+        else
+            return nFolhasEsq + nFolhasDir;
+    }
+}
+int ArvBin::contaNosFolhas() { return auxContaNosFolhas(raiz); }
+
+// Ex03
+int ArvBin::auxAltura(NoArv *p)
+{
+    if (p == NULL)
+        return 0;
+    else
+    {
+        NoArv *esq = p->getEsq();
+        NoArv *dir = p->getDir();
+        int hEsq = auxAltura(esq);
+        int hDir = auxAltura(dir);
+        return max(hEsq, hDir);
+    }
+}
+int ArvBin::altura() { return auxAltura(raiz); }
