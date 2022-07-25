@@ -151,10 +151,10 @@ void ArvBin::preOrdem()
         {
             q = pilha.desempilha();
             cout << q->getInfo() << " ";
-            if (q->getEsq() != NULL)
-                pilha.empilha(q->getEsq());
             if (q->getDir() != NULL)
                 pilha.empilha(q->getDir());
+            if (q->getEsq() != NULL)
+                pilha.empilha(q->getEsq());
         };
     }
 }
@@ -224,6 +224,7 @@ int ArvBin::auxNFolhas(NoArv *p)
 }
 int ArvBin::nFolhas() { return auxNFolhas(raiz); }
 
+// Ex03
 bool ArvBin::ehCheia()
 {
     int h = altura();
@@ -232,6 +233,7 @@ bool ArvBin::ehCheia()
     return (numFolhas == numFolhasCheia);
 }
 
+// Ex04
 NoArv *ArvBin::auxRemoveFolhas(NoArv *p)
 {
     if (p == NULL)
@@ -243,10 +245,11 @@ NoArv *ArvBin::auxRemoveFolhas(NoArv *p)
         delete p;
         p = NULL;
     }
-    if (esq != NULL)
+    else
+    {
         p->setEsq(auxRemoveFolhas(p->getEsq()));
-    if (dir != NULL)
         p->setDir(auxRemoveFolhas(p->getDir()));
+    }
     return p;
 }
 void ArvBin::removeFolhas() { raiz = auxRemoveFolhas(raiz); }
