@@ -198,6 +198,27 @@ int ArvBin::auxNFolhas(NoArv *p)
 }
 int ArvBin::nFolhas() { return auxNFolhas(raiz); }
 
+// Ex04
+NoArv *ArvBin::auxRemoveFolhas(NoArv *p)
+{
+    if (p == NULL)
+        return NULL;
+    NoArv *esq = p->getEsq();
+    NoArv *dir = p->getDir();
+    if (esq == NULL && dir == NULL)
+    {
+        delete p;
+        p = NULL;
+    }
+    else
+    {
+        p->setEsq(auxRemoveFolhas(p->getEsq()));
+        p->setDir(auxRemoveFolhas(p->getDir()));
+    }
+    return p;
+}
+void ArvBin::removeFolhas() { raiz = auxRemoveFolhas(raiz); }
+
 // Ex07
 void ArvBin::auxEhCheia(NoArv *p, int *hp, int *nf)
 {
@@ -230,112 +251,37 @@ bool ArvBin::ehCheia()
     return (numFolhas == numFolhasCheia);
 }
 
-NoArv *ArvBin::auxRemoveFolhas(NoArv *p)
+// Ex08
+void ArvBin::auxPreOrdemNivel(NoArv *p, int k)
+{
+    if (p != NULL)
+    {
+        cout << p->getInfo() << " (" << k << ") ";
+        auxPreOrdemNivel(p->getEsq(), k + 1);
+        auxPreOrdemNivel(p->getDir(), k + 1);
+    }
+}
+void ArvBin::preOrdemNivel()
+{
+    cout << "Arvore Binaria em Pre-Ordem com nível: ";
+    auxPreOrdemNivel(raiz, 0);
+}
+
+int ArvBin::auxNNosK(NoArv *p, int k)
 {
     if (p == NULL)
-        return NULL;
-    NoArv *esq = p->getEsq();
-    NoArv *dir = p->getDir();
-    if (esq == NULL && dir == NULL)
+        return 0;
+    else
     {
-        delete p;
-        p = NULL;
-    }
-    if (esq != NULL)
-        p->setEsq(auxRemoveFolhas(p->getEsq()));
-    if (dir != NULL)
-        p->setDir(auxRemoveFolhas(p->getDir()));
-    return p;
-}
-void ArvBin::removeFolhas() { raiz = auxRemoveFolhas(raiz); }
-
-void ArvBin::infoNo(int k)
-{
-    NoArv *p = raiz, *q;
-    FilaEncad fila;
-    int nivel = 0;
-    if (p != NULL)
-    {
-        fila.enfileira(p);
-        fila.enfileira(NULL);
-        while (!fila.vazia())
+        if (k == 0)
+            return 1;
+        else
         {
-            q = fila.desenfileira();
-            if (q == NULL)
-            {
-                if (!fila.vazia() && fila.getInicio() != NULL)
-                {
-                    fila.enfileira(NULL);
-                }
-                nivel++;
-            }
-            else
-            {
-                if (q->getInfo() == k)
-                {
-                    cout << "N" << nivel << ": " << k << endl;
-                    return;
-                }
-                if (q->getEsq() != NULL)
-                    fila.enfileira(q->getEsq());
-                if (q->getDir() != NULL)
-                    fila.enfileira(q->getDir());
-            }
+            int numNos = 0;
+            int nEsq = (auxNNosK(p->getEsq(), k - 1));
+            int nDir = (auxNNosK(p->getDir(), k - 1));
+            return nEsq + nDir;
         }
     }
-    cout << "Valor não encontrado!" << endl;
 }
-
-int ArvBin::nNosK(int k)
-{
-    NoArv *p = raiz, *q;
-    FilaEncad fila;
-    int nNos = 0;
-    int nivel = 0;
-    if (p != NULL)
-    {
-        fila.enfileira(p);
-        fila.enfileira(NULL);
-        while (!fila.vazia())
-        {
-            q = fila.desenfileira();
-            if (q == NULL)
-            {
-                if (!fila.vazia() && fila.getInicio() != NULL)
-                {
-                    fila.enfileira(NULL);
-                }
-                nivel++;
-            }
-            else
-            {
-                if (nivel >= k)
-                    nNos++;
-                if (q->getEsq() != NULL)
-                    fila.enfileira(q->getEsq());
-                if (q->getDir() != NULL)
-                    fila.enfileira(q->getDir());
-            }
-        }
-    }
-    return nNos;
-}
-
-// void ArvBin::percursoLargura()
-// {
-//     NoArv *p = raiz, *q; // ponteiros para nó da árvore
-//     FilaEncad fila;
-//     if (p != NULL) // verifica se árvore está vazia
-//     {
-//         fila.enfileira(p);    // coloca nó raiz na fila
-//         while (!fila.vazia()) // há nós na fila?
-//         {
-//             q = fila.desenfileira(); // tira nó da fila
-//             cout << q->getInfo() << endl;
-//             if (q->getEsq() != NULL)
-//                 fila.enfileira(q->getEsq());
-//             if (q->getDir() != NULL)
-//                 fila.enfileira(q->getDir());
-//         }
-//     }
-// }
+int ArvBin::nNosK(int k) { return auxNNosK(raiz, k); }

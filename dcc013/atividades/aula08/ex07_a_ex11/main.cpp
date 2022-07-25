@@ -70,37 +70,42 @@ int main()
     // 10 18 16 NULL NULL 19 NULL NULL 25 38 NULL NULL 14 NULL NULL
     // arvCheia->montaArvore();
 
-    // arvVazia->preOrdem();
-    // cout << endl;
-    // arv1No->preOrdem();
-    // cout << endl;
-    // arv1Folha->preOrdem();
-    // cout << endl;
-    // arvCompleta->preOrdem();
-    // cout << endl;
-    // arvCheia->preOrdem();
-    // cout << endl;
+    arvVazia->preOrdem();
+    cout << endl;
+    arv1No->preOrdem();
+    cout << endl;
+    arv1Folha->preOrdem();
+    cout << endl;
+    arvCompleta->preOrdem();
+    cout << endl;
+    arvCheia->preOrdem();
+    cout << endl;
 
     // Ex07
-    // cout << boolalpha << arvVazia->ehCheia() << endl;
-    // cout << boolalpha << arv1No->ehCheia() << endl;
-    // cout << boolalpha << arv1Folha->ehCheia() << endl;
-    // cout << boolalpha << arvCheia->ehCheia() << endl;
-    // cout << boolalpha << arvCompleta->ehCheia() << endl;
+    cout << boolalpha << arvVazia->ehCheia() << endl;
+    cout << boolalpha << arv1No->ehCheia() << endl;
+    cout << boolalpha << arv1Folha->ehCheia() << endl;
+    cout << boolalpha << arvCheia->ehCheia() << endl;
+    cout << boolalpha << arvCompleta->ehCheia() << endl;
 
     // Ex08
-    arvVazia->infoNo(10);
-    arv1No->infoNo(13);
-    arv1Folha->infoNo(17);
-    arvCheia->infoNo(14);
-    arvCompleta->infoNo(24);
+    arvVazia->preOrdemNivel();
+    cout << endl;
+    arv1No->preOrdemNivel();
+    cout << endl;
+    arv1Folha->preOrdemNivel();
+    cout << endl;
+    arvCheia->preOrdemNivel();
+    cout << endl;
+    arvCompleta->preOrdemNivel();
+    cout << endl;
 
     // Ex09
-    // cout << arvVazia->nNosK(2) << endl;
-    // cout << arv1No->nNosK(2) << endl;
-    // cout << arv1Folha->nNosK(2) << endl;
-    // cout << arvCheia->nNosK(2) << endl;
-    // cout << arvCompleta->nNosK(2) << endl;
+    cout << arvVazia->nNosK(1) << endl;
+    cout << arv1No->nNosK(1) << endl;
+    cout << arv1Folha->nNosK(1) << endl;
+    cout << arvCheia->nNosK(2) << endl;
+    cout << arvCompleta->nNosK(3) << endl;
 
     return 0;
 }

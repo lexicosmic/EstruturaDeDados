@@ -21,7 +21,7 @@ public:
   int nFolhas();
   bool ehCheia();
   void removeFolhas();
-  void infoNo(int k);
+  void preOrdemNivel();
   int nNosK(int k);
 
 private:
@@ -39,7 +39,8 @@ private:
   int auxNFolhas(NoArv *p);
   void auxEhCheia(NoArv *p, int *hp, int *nf);
   NoArv *auxRemoveFolhas(NoArv *p);
-  int auxNNosK(NoArv *p, int kp, int k);
+  void auxPreOrdemNivel(NoArv *p, int k);
+  int auxNNosK(NoArv *p, int k);
 };
 
 #endif // ARVBIN_H_INCLUDED
