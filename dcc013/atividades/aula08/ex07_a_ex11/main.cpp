@@ -28,7 +28,6 @@ ArvBin *criaArvCheia()
 
 ArvBin *criaArvCompleta()
 {
-
     ArvBin *arv = new ArvBin;
     ArvBin *esq = new ArvBin;
     ArvBin *dir = new ArvBin;
@@ -55,10 +54,36 @@ ArvBin *criaArvCompleta()
     return arv;
 }
 
+ArvBin *criaArvTorta()
+{
+    ArvBin *arv = new ArvBin;
+    ArvBin *esq = new ArvBin;
+    ArvBin *dir = new ArvBin;
+    ArvBin *arve2 = new ArvBin;
+    ArvBin *arvd2 = new ArvBin;
+    ArvBin *arvd3 = new ArvBin;
+
+    arvd3->cria(12, new ArvBin, new ArvBin);
+
+    esq->cria(16, new ArvBin, new ArvBin);
+    dir->cria(19, new ArvBin, new ArvBin);
+    arve2->cria(18, esq, dir);
+
+    esq = new ArvBin;
+    dir = new ArvBin;
+    esq->cria(38, new ArvBin, arvd3);
+    arvd2->cria(25, esq, new ArvBin);
+
+    arv->cria(10, arve2, arvd2);
+
+    return arv;
+}
+
 int main()
 {
     ArvBin *arvCheia = criaArvCheia();
     ArvBin *arvCompleta = criaArvCompleta();
+    ArvBin *arvTorta = criaArvTorta();
     ArvBin *arvVazia = new ArvBin;
     ArvBin *arv1No = new ArvBin;
     ArvBin *arv1Folha = new ArvBin;
@@ -76,36 +101,56 @@ int main()
     cout << endl;
     arv1Folha->preOrdem();
     cout << endl;
+    arvTorta->preOrdem();
+    cout << endl;
     arvCompleta->preOrdem();
     cout << endl;
     arvCheia->preOrdem();
     cout << endl;
 
     // Ex07
-    cout << boolalpha << arvVazia->ehCheia() << endl;
-    cout << boolalpha << arv1No->ehCheia() << endl;
-    cout << boolalpha << arv1Folha->ehCheia() << endl;
-    cout << boolalpha << arvCheia->ehCheia() << endl;
-    cout << boolalpha << arvCompleta->ehCheia() << endl;
+    // cout << boolalpha << arvVazia->ehCheia() << endl;
+    // cout << boolalpha << arv1No->ehCheia() << endl;
+    // cout << boolalpha << arv1Folha->ehCheia() << endl;
+    // cout << boolalpha << arvCheia->ehCheia() << endl;
+    // cout << boolalpha << arvCompleta->ehCheia() << endl;
 
     // Ex08
-    arvVazia->preOrdemNivel();
-    cout << endl;
-    arv1No->preOrdemNivel();
-    cout << endl;
-    arv1Folha->preOrdemNivel();
-    cout << endl;
-    arvCheia->preOrdemNivel();
-    cout << endl;
-    arvCompleta->preOrdemNivel();
-    cout << endl;
+    // arvVazia->preOrdemNivel();
+    // cout << endl;
+    // arv1No->preOrdemNivel();
+    // cout << endl;
+    // arv1Folha->preOrdemNivel();
+    // cout << endl;
+    // arvTorta->preOrdemNivel();
+    // cout << endl;
+    // arvCheia->preOrdemNivel();
+    // cout << endl;
+    // arvCompleta->preOrdemNivel();
+    // cout << endl;
 
     // Ex09
-    cout << arvVazia->nNosK(1) << endl;
-    cout << arv1No->nNosK(1) << endl;
-    cout << arv1Folha->nNosK(1) << endl;
-    cout << arvCheia->nNosK(2) << endl;
-    cout << arvCompleta->nNosK(3) << endl;
+    // cout << arvVazia->nNosK(1) << endl;
+    // cout << arv1No->nNosK(1) << endl;
+    // cout << arv1Folha->nNosK(1) << endl;
+    // cout << arvCheia->nNosK(2) << endl;
+    // cout << arvCompleta->nNosK(3) << endl;
+
+    // Ex10
+    // cout << boolalpha << arvVazia->ehCompleta() << endl;
+    // cout << boolalpha << arv1No->ehCompleta() << endl;
+    // cout << boolalpha << arv1Folha->ehCompleta() << endl;
+    // cout << boolalpha << arvTorta->ehCompleta() << endl;
+    // cout << boolalpha << arvCheia->ehCompleta() << endl;
+    // cout << boolalpha << arvCompleta->ehCompleta() << endl;
+
+    // Ex11
+    // cout << boolalpha << arvVazia->ehEstritBin() << endl;
+    // cout << boolalpha << arv1No->ehEstritBin() << endl;
+    // cout << boolalpha << arv1Folha->ehEstritBin() << endl;
+    // cout << boolalpha << arvTorta->ehEstritBin() << endl;
+    // cout << boolalpha << arvCheia->ehEstritBin() << endl;
+    // cout << boolalpha << arvCompleta->ehEstritBin() << endl;
 
     return 0;
 }

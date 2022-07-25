@@ -23,6 +23,8 @@ public:
   void removeFolhas();
   void preOrdemNivel();
   int nNosK(int k);
+  bool ehCompleta();
+  bool ehEstritBin();
 
 private:
   NoArv *raiz; // ponteiro para o No raiz da �rvore
@@ -41,6 +43,7 @@ private:
   NoArv *auxRemoveFolhas(NoArv *p);
   void auxPreOrdemNivel(NoArv *p, int k);
   int auxNNosK(NoArv *p, int k);
+  bool auxEhEstritBin(NoArv *p);
 };
 
 #endif // ARVBIN_H_INCLUDED

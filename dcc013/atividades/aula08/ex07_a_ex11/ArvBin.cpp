@@ -267,6 +267,7 @@ void ArvBin::preOrdemNivel()
     auxPreOrdemNivel(raiz, 0);
 }
 
+// Ex09
 int ArvBin::auxNNosK(NoArv *p, int k)
 {
     if (p == NULL)
@@ -285,3 +286,32 @@ int ArvBin::auxNNosK(NoArv *p, int k)
     }
 }
 int ArvBin::nNosK(int k) { return auxNNosK(raiz, k); }
+
+// Ex10
+bool ArvBin::ehCompleta()
+{
+    int h = altura();
+    int numNosPenultNiv = nNosK(h - 1);
+    int numNosEsperado = powf(2, h - 1);
+    return (numNosPenultNiv == numNosEsperado);
+}
+
+bool ArvBin::auxEhEstritBin(NoArv *p)
+{
+    if (p != NULL)
+    {
+        NoArv *esq = p->getEsq();
+        NoArv *dir = p->getDir();
+
+        if ((esq != NULL && dir == NULL) || (esq == NULL && dir != NULL))
+            return false;
+        else
+        {
+            bool esqEstBin = auxEhEstritBin(esq);
+            bool dirEstBin = auxEhEstritBin(dir);
+            return esqEstBin && dirEstBin;
+        }
+    }
+    return true;
+}
+bool ArvBin::ehEstritBin() { return auxEhEstritBin(raiz); }
