@@ -335,3 +335,143 @@ int ArvBin::max()
     auxMax(raiz, &max);
     return max;
 }
+
+// Ex09
+void ArvBin::auxInverte(NoArv *p)
+{
+    if (p == NULL)
+        return;
+    else
+    {
+        NoArv *esq = p->getEsq();
+        NoArv *dir = p->getDir();
+        p->setEsq(dir);
+        p->setDir(esq);
+        auxInverte(esq);
+        auxInverte(dir);
+    }
+}
+void ArvBin::inverte() { auxInverte(raiz); }
+
+void ArvBin::auxImprimePorNivel(NoArv *p, int k)
+{
+    if (p == NULL)
+        return;
+    else
+    {
+        auxImprimePorNivel(p->getDir(), k + 1);
+        for (int i = 0; i < k; i++)
+            cout << "\t";
+        cout << p->getInfo() << endl;
+        auxImprimePorNivel(p->getEsq(), k + 1);
+    }
+}
+void ArvBin::imprimePorNivel() { auxImprimePorNivel(raiz, 0); }
+
+// Ex10
+int ArvBin::auxNoMaisEsquerda(NoArv *p)
+{
+    if (p == NULL)
+        return 0;
+    else
+    {
+        int valor = p->getInfo();
+        NoArv *esq = p->getEsq();
+        if (esq == NULL)
+            return valor;
+        else
+            return auxNoMaisEsquerda(p->getEsq());
+    }
+}
+int ArvBin::noMaisEsquerda() { return auxNoMaisEsquerda(raiz); }
+int ArvBin::auxNoMaisDireita(NoArv *p)
+{
+    if (p == NULL)
+        return 0;
+    else
+    {
+        int valor = p->getInfo();
+        NoArv *dir = p->getDir();
+        if (dir == NULL)
+            return valor;
+        else
+            return auxNoMaisDireita(p->getDir());
+    }
+}
+int ArvBin::noMaisDireita() { return auxNoMaisDireita(raiz); }
+
+// Ex11
+void ArvBin::auxMinSubArvore(NoArv *p, int *min)
+{
+    if (p == NULL)
+        return;
+    else
+    {
+        int atual = p->getInfo();
+        if (atual < *min)
+            *min = atual;
+        auxMinSubArvore(p->getEsq(), min);
+        auxMinSubArvore(p->getDir(), min);
+    }
+}
+int ArvBin::minSubArvore(NoArv *p)
+{
+    if (p == NULL)
+        return 0;
+    int min;
+    min = p->getInfo();
+    auxMinSubArvore(p, &min);
+    return min;
+}
+void ArvBin::auxMaxSubArvore(NoArv *p, int *max)
+{
+    if (p == NULL)
+        return;
+    else
+    {
+        int atual = p->getInfo();
+        if (atual > *max)
+            *max = atual;
+        auxMaxSubArvore(p->getEsq(), max);
+        auxMaxSubArvore(p->getDir(), max);
+    }
+}
+int ArvBin::maxSubArvore(NoArv *p)
+{
+    if (p == NULL)
+        return 0;
+    int max;
+    max = p->getInfo();
+    auxMaxSubArvore(p, &max);
+    return max;
+}
+
+NoArv *ArvBin::getNoRaiz() { return raiz; }
+
+// Ex12
+bool ArvBin::auxEhABB(NoArv *p)
+{
+    if (p == NULL)
+        return true;
+    else
+    {
+        NoArv *esq = p->getEsq();
+        NoArv *dir = p->getDir();
+        if (esq != NULL)
+        {
+            int minEsq = minSubArvore(esq);
+            if (minEsq > p->getInfo())
+                return false;
+            auxEhABB(esq);
+        }
+        if (dir != NULL)
+        {
+            int minDir = minSubArvore(dir);
+            if (minDir < p->getInfo())
+                return false;
+            auxEhABB(dir);
+        }
+        return true;
+    }
+}
+bool ArvBin::ehABB() { return auxEhABB(raiz); }

@@ -24,6 +24,14 @@ public:
   float mediaNivel(int kp);
   int min();
   int max();
+  void inverte();
+  void imprimePorNivel();
+  int noMaisEsquerda();
+  int noMaisDireita();
+  int minSubArvore(NoArv *p);
+  int maxSubArvore(NoArv *p);
+  NoArv *getNoRaiz();
+  bool ehABB();
 
 private:
   NoArv *raiz; // ponteiro para o No raiz da �rvore
@@ -33,7 +41,6 @@ private:
   void auxPreOrdem(NoArv *p);
   NoArv *auxMontaArvore();
   // void auxImpNivel(NoArv *p, int atual, int k);
-  // void auxInverte(NoArv *p);
   NoArv *auxInsere(NoArv *p, int x);
   int auxContaNos(NoArv *p);
   int auxContaNosFolhas(NoArv *p);
@@ -44,6 +51,13 @@ private:
   void auxMediaNivel(NoArv *p, int kp, int k, int *nNos, int *soma);
   void auxMin(NoArv *p, int *min);
   void auxMax(NoArv *p, int *max);
+  void auxInverte(NoArv *p);
+  void auxImprimePorNivel(NoArv *p, int k);
+  int auxNoMaisEsquerda(NoArv *p);
+  int auxNoMaisDireita(NoArv *p);
+  void auxMinSubArvore(NoArv *p, int *min);
+  void auxMaxSubArvore(NoArv *p, int *max);
+  bool auxEhABB(NoArv *p);
 };
 
 #endif // ARVBIN_H_INCLUDED
