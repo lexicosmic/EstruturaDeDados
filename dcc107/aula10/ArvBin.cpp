@@ -190,14 +190,148 @@ int ArvBin::contaNosFolhas() { return auxContaNosFolhas(raiz); }
 int ArvBin::auxAltura(NoArv *p)
 {
     if (p == NULL)
-        return 0;
+        return -1;
     else
     {
         NoArv *esq = p->getEsq();
         NoArv *dir = p->getDir();
         int hEsq = auxAltura(esq);
         int hDir = auxAltura(dir);
-        return max(hEsq, hDir);
+        int maximo = hEsq;
+        if (hDir > hEsq)
+            maximo = hDir;
+        return 1 + maximo;
     }
 }
 int ArvBin::altura() { return auxAltura(raiz); }
+
+// Ex04
+int ArvBin::auxContaImpar(NoArv *p)
+{
+    if (p == NULL)
+        return 0;
+    else
+    {
+        NoArv *esq = p->getEsq();
+        NoArv *dir = p->getDir();
+        int nImpEsq = auxContaImpar(esq);
+        int nImpDir = auxContaImpar(dir);
+        int nImpTot = nImpEsq + nImpDir;
+        if (p->getInfo() % 2 != 0)
+            nImpTot++;
+        return nImpTot;
+    }
+}
+int ArvBin::contaImpar() { return auxContaImpar(raiz); }
+
+// Ex05
+int ArvBin::auxContaFolhaImpar(NoArv *p)
+{
+    if (p == NULL)
+        return 0;
+    else
+    {
+        NoArv *esq = p->getEsq();
+        NoArv *dir = p->getDir();
+        int nFolhasImpEsq = auxContaFolhaImpar(esq);
+        int nFolhasImpDir = auxContaFolhaImpar(dir);
+        if (esq == NULL & dir == NULL && p->getInfo() % 2 != 0)
+            return 1;
+        else
+            return nFolhasImpEsq + nFolhasImpDir;
+    }
+}
+int ArvBin::contaFolhaImpar() { return auxContaFolhaImpar(raiz); }
+
+// Ex06
+void ArvBin::auxImprimeNivel(NoArv *p, int kp, int k)
+{
+    if (p != NULL)
+    {
+        if (kp == k)
+            cout << p->getInfo() << " ";
+        auxImprimeNivel(p->getEsq(), kp, k + 1);
+        auxImprimeNivel(p->getDir(), kp, k + 1);
+    }
+}
+void ArvBin::imprimeNivel(int kp) { return auxImprimeNivel(raiz, kp, 0); }
+
+// Ex07
+void ArvBin::auxMediaNivel(NoArv *p, int kp, int k, int *nNos, int *soma)
+{
+    if (p == NULL)
+        return;
+    else
+    {
+        if (kp == k)
+        {
+            (*nNos)++;
+            (*soma) += p->getInfo();
+        }
+
+        NoArv *esq = p->getEsq();
+        NoArv *dir = p->getDir();
+        auxMediaNivel(esq, kp, k + 1, nNos, soma);
+        auxMediaNivel(dir, kp, k + 1, nNos, soma);
+    }
+}
+float ArvBin::mediaNivel(int kp)
+{
+    int nNos = 0;
+    int soma = 0;
+    auxMediaNivel(raiz, kp, 0, &nNos, &soma);
+    float media = 0;
+    if (nNos > 0)
+    {
+        media = soma / (float)nNos;
+    }
+    return media;
+}
+
+// Ex08
+void ArvBin::auxMin(NoArv *p, int *min)
+{
+    if (p == NULL)
+        return;
+    else
+    {
+        int atual = p->getInfo();
+        if (atual < *min)
+            *min = atual;
+        auxMin(p->getEsq(), min);
+        auxMin(p->getDir(), min);
+    }
+}
+int ArvBin::min()
+{
+    int min;
+    if (raiz != NULL)
+        min = raiz->getInfo();
+    else
+        return 0;
+    auxMin(raiz, &min);
+    return min;
+}
+void ArvBin::auxMax(NoArv *p, int *max)
+{
+    if (p == NULL)
+        return;
+    else
+    {
+        int atual = p->getInfo();
+        if (atual > *max)
+            *max = atual;
+        auxMax(p->getEsq(), max);
+        auxMax(p->getDir(), max);
+    }
+}
+int ArvBin::max()
+{
+    int max;
+    if (raiz != NULL)
+        max = raiz->getInfo();
+    else
+        return 0;
+    auxMax(raiz, &max);
+    return max;
+}
