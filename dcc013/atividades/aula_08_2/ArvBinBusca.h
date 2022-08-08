@@ -17,6 +17,10 @@ public:
     void removeMaior();
     void removeMenor();
     void removeSubstEsq(int val);
+    int getAltura();
+    bool ehBalanceada();
+    bool ehABB();
+    void montaNaoAbb();
 
 private:
     NoArv *raiz; // ponteiro para o No raiz da �rvore
@@ -34,6 +38,9 @@ private:
     NoArv *auxRemoveMenor(NoArv *p);
     NoArv *auxRemoveSubstEsq(NoArv *p, int val);
     NoArv *maiorSubArvEsquerda(NoArv *p);
+    int auxGetAltura(NoArv *p);
+    int auxEhBalanceada(NoArv *p, int *np);
+    bool auxEhABB(NoArv *p, int *ant, bool *init);
 };
 
 #endif // ARVBINBUSCA_H_INCLUDED

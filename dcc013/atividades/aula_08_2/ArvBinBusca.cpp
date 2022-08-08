@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 #include "ArvBinBusca.h"
 
 using namespace std;
@@ -287,4 +288,90 @@ NoArv *ArvBinBusca::auxRemoveSubstEsq(NoArv *p, int val)
         }
     }
     return p;
+}
+
+int ArvBinBusca::auxGetAltura(NoArv *p)
+{
+    if (p == NULL)
+        return -1;
+    else
+    {
+        int hEsq = auxGetAltura(p->getEsq());
+        int hDir = auxGetAltura(p->getDir());
+        return 1 + max(hEsq, hDir);
+    }
+}
+
+int ArvBinBusca::getAltura()
+{
+    return auxGetAltura(raiz);
+}
+
+int ArvBinBusca::auxEhBalanceada(NoArv *p, int *np)
+{
+    if (p == NULL)
+        return -1;
+    else
+    {
+        (*np)++;
+        int hEsq = auxEhBalanceada(p->getEsq(), np);
+        int hDir = auxEhBalanceada(p->getDir(), np);
+        return 1 + max(hEsq, hDir);
+    }
+}
+
+bool ArvBinBusca::ehBalanceada()
+{
+    int n = 0;
+    int h = auxEhBalanceada(raiz, &n);
+    int comparacao = log2(n) + 1;
+    return h < comparacao;
+}
+
+bool ArvBinBusca::auxEhABB(NoArv *p, int *ant, bool *init)
+{
+    if (p == NULL)
+        return true;
+    NoArv *esq = p->getEsq();
+    NoArv *dir = p->getDir();
+    int info = p->getInfo();
+
+    bool ehAbbEsq = auxEhABB(esq, ant, init);
+
+    if (!(*init))
+        *init = true;
+    else if (*ant > info)
+        return false;
+    *ant = info;
+
+    bool ehAbbDir = auxEhABB(dir, ant, init);
+
+    return (ehAbbEsq && ehAbbDir);
+}
+
+bool ArvBinBusca::ehABB()
+{
+    if (raiz == NULL)
+        return true;
+
+    int ant = menor();
+    bool init = false;
+    return auxEhABB(raiz, &ant, &init);
+}
+
+void ArvBinBusca::montaNaoAbb()
+{
+    NoArv *novo1 = new NoArv;
+    NoArv *novo2 = new NoArv;
+    NoArv *novo3 = new NoArv;
+    novo3->setEsq(NULL);
+    novo3->setDir(NULL);
+    novo3->setInfo(11);
+    novo2->setEsq(NULL);
+    novo2->setDir(NULL);
+    novo2->setInfo(12);
+    novo1->setEsq(novo3);
+    novo1->setDir(novo2);
+    novo1->setInfo(10);
+    raiz = novo1;
 }
