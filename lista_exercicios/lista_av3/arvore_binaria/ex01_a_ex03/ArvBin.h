@@ -22,12 +22,16 @@ private:
   void auxImprimirNivelEmOrdem(NoArv *p, int nivel);
   void auxImprimirNivelPosOrdem(NoArv *p, int nivel);
   void auxSucessor(NoArv *p, int val, int *sucessor, bool *encontrado);
+  int auxECheia(NoArv *p, int *nNos);
+  int getAltura(NoArv *p);
+  int getNumNosAteNivel(NoArv *p, int nivel);
 
 public:
   ArvBin();
   ~ArvBin();
   void insere(int x);
   void imprime();
+  void cria(int x, ArvBin *sae, ArvBin *sad);
   int impares();
   int soma();
   float media();
@@ -38,6 +42,8 @@ public:
   float mediaNivel(int nivel);
   void imprimirNivel(int nivel);
   int sucessor(int val);
+  bool eCheia();
+  bool eCompleta();
 };
 
 #endif // ARVBIN_H_INCLUDED

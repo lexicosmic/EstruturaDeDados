@@ -71,6 +71,15 @@ NoArv *ArvBin::auxInsereAleatorio(NoArv *p, int val)
     return p;
 }
 
+void ArvBin::cria(int x, ArvBin *sae, ArvBin *sad)
+{
+    NoArv *p = new NoArv();
+    p->setInfo(x);
+    p->setEsq(sae->raiz);
+    p->setDir(sad->raiz);
+    raiz = p;
+}
+
 void ArvBin::imprime()
 {
     if (raiz == NULL)
@@ -362,4 +371,50 @@ int ArvBin::sucessor(int val)
     int valSucessor = val;
     auxSucessor(raiz, val, &valSucessor, &encontrado);
     return valSucessor;
+}
+
+// Ex02 -> 19 minutos e 45 segundos
+int ArvBin::auxECheia(NoArv *p, int *nNos)
+{
+    if (p == NULL)
+        return -1;
+    (*nNos)++;
+    int hEsq = auxECheia(p->getEsq(), nNos);
+    int hDir = auxECheia(p->getDir(), nNos);
+    return max(hEsq, hDir) + 1;
+}
+bool ArvBin::eCheia()
+{
+    int nNos = 0;
+    int h = auxECheia(raiz, &nNos);
+    int esperado = pow(2, h + 1) - 1;
+    return nNos == esperado;
+}
+
+// Ex03 -> 11 minutos e 08 segundos
+int ArvBin::getAltura(NoArv *p)
+{
+    if (p == NULL)
+        return -1;
+    int hEsq = getAltura(p->getEsq());
+    int hDir = getAltura(p->getDir());
+    return max(hEsq, hDir) + 1;
+}
+int ArvBin::getNumNosAteNivel(NoArv *p, int nivel)
+{
+    if (p != NULL && nivel >= 0)
+    {
+        int nNosEsq = getNumNosAteNivel(p->getEsq(), nivel - 1);
+        int nNosDir = getNumNosAteNivel(p->getDir(), nivel - 1);
+        return nNosEsq + nNosDir + 1;
+    }
+    else
+        return 0;
+}
+bool ArvBin::eCompleta()
+{
+    int h = getAltura(raiz);
+    int nNos = getNumNosAteNivel(raiz, h - 1);
+    int esperado = pow(2, h) - 1;
+    return nNos == esperado;
 }
