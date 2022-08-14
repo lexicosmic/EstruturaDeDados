@@ -411,3 +411,208 @@ void ArvBinBusca::insereDoVetorCompleta(int n, int *vet)
     libera(raiz);
     auxInsereDoVetorCompleta(0, tamMax, novoVet);
 }
+
+// Ex04 - F -> 25 minutos e 29 segundos
+void ArvBinBusca::auxInsereVetorCrescente(NoArv *p, int *vet, int *numVet)
+{
+    if (p == NULL)
+        return;
+    auxInsereVetorCrescente(p->getEsq(), vet, numVet);
+    vet[*numVet] = p->getInfo();
+    (*numVet)++;
+    auxInsereVetorCrescente(p->getDir(), vet, numVet);
+}
+int *ArvBinBusca::insereVetorCrescente(int *n)
+{
+    int numNos = getNumNos();
+    int *numVet = new int(0);
+    int *vet = new int[numNos];
+    auxInsereVetorCrescente(raiz, vet, numVet);
+    *n = numNos;
+    return vet;
+}
+
+// Ex04 - G -> 02 minutos e 06 segundos
+void ArvBinBusca::auxInsereVetorDecrescente(NoArv *p, int *vet, int *numVet)
+{
+    if (p == NULL)
+        return;
+    auxInsereVetorDecrescente(p->getDir(), vet, numVet);
+    vet[*numVet] = p->getInfo();
+    (*numVet)++;
+    auxInsereVetorDecrescente(p->getEsq(), vet, numVet);
+}
+int *ArvBinBusca::insereVetorDecrescente(int *n)
+{
+    int numNos = getNumNos();
+    int *numVet = new int(0);
+    int *vet = new int[numNos];
+    auxInsereVetorDecrescente(raiz, vet, numVet);
+    *n = numNos;
+    return vet;
+}
+
+// Ex04 - H -> 09 minutos e 22 segundos
+NoArv *ArvBinBusca::buscaValor(int val)
+{
+    NoArv *p = raiz;
+    while (p != NULL)
+    {
+        int info = p->getInfo();
+        if (val < info)
+            p = p->getEsq();
+        else if (val > info)
+            p = p->getDir();
+        else
+            break;
+    }
+    return p;
+}
+bool ArvBinBusca::buscaValorBool(int val)
+{
+    return (buscaValor(val) != NULL);
+}
+
+// Ex04 - I -> 05 minutos e 25 segundos
+int ArvBinBusca::classificaNo(int val)
+{
+    NoArv *p = buscaValor(val);
+    if (p == NULL)
+        return -1;
+    else if (p->getEsq() != NULL && p->getDir() != NULL)
+        return 2;
+    else if (p->getEsq() != NULL || p->getDir() != NULL)
+        return 1;
+    else
+        return 0;
+}
+
+// Ex04 - J -> 19 minutos e 45 segundos
+void ArvBinBusca::insereNR(int val)
+{
+    NoArv *p = raiz;
+    bool insEsq = true;
+    while (p != NULL)
+    {
+        int info = p->getInfo();
+        if (val < info)
+        {
+            if (p->getEsq() != NULL)
+                p = p->getEsq();
+            else
+                break;
+        }
+        else if (val > info)
+        {
+            insEsq = false;
+            if (p->getDir() != NULL)
+                p = p->getDir();
+            else
+                break;
+        }
+        else
+            break;
+    }
+
+    NoArv *novo = new NoArv;
+    novo->setInfo(val);
+    novo->setEsq(NULL);
+    novo->setDir(NULL);
+
+    if (p == NULL)
+        raiz = novo;
+    else
+    {
+        if (insEsq)
+            p->setEsq(novo);
+        else
+            p->setDir(novo);
+    }
+}
+
+// Ex04 - K -> 07 minutos e 07 segundos
+int ArvBinBusca::auxNos1Filho(NoArv *p)
+{
+    if (p == NULL)
+        return 0;
+    NoArv *esq = p->getEsq();
+    NoArv *dir = p->getDir();
+    int numEsq = auxNos1Filho(esq);
+    int numDir = auxNos1Filho(dir);
+    int eh1Filho = 0;
+    if (esq == NULL && dir != NULL || esq != NULL && dir == NULL)
+        eh1Filho = 1;
+    return numEsq + numDir + eh1Filho;
+}
+int ArvBinBusca::nos1Filho()
+{
+    return auxNos1Filho(raiz);
+}
+
+// Ex04 - L -> 03 minutos e 28 segundos
+int ArvBinBusca::auxNos2Filhos(NoArv *p)
+{
+    if (p == NULL)
+        return 0;
+    NoArv *esq = p->getEsq();
+    NoArv *dir = p->getDir();
+    int numEsq = auxNos2Filhos(esq);
+    int numDir = auxNos2Filhos(dir);
+    int eh2Filhos = 0;
+    if (esq != NULL && dir != NULL)
+        eh2Filhos = 1;
+    return numEsq + numDir + eh2Filhos;
+}
+int ArvBinBusca::nos2Filhos()
+{
+    return auxNos2Filhos(raiz);
+}
+
+// Ex04 - M -> 08 minutos e 46 segundos
+bool ArvBinBusca::auxEstritamenteBin(NoArv *p)
+{
+    if (p == NULL)
+        return true;
+    NoArv *esq = p->getEsq();
+    NoArv *dir = p->getDir();
+    bool estBinEsq = auxEstritamenteBin(esq);
+    bool estBinDir = auxEstritamenteBin(dir);
+    bool estBinAtual = false;
+    if ((esq != NULL && dir != NULL) || (esq == NULL && dir == NULL))
+        estBinAtual = true;
+    return estBinEsq && estBinDir && estBinAtual;
+}
+bool ArvBinBusca::estritamenteBin()
+{
+    if (!eABB())
+        return false;
+    return auxEstritamenteBin(raiz);
+}
+
+// Ex04 - N -> 13 minutos e 28 segundos
+void organizaVetor(int *vet, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n - i - 1; j++)
+        {
+            if (vet[j] > vet[j + 1])
+            {
+                int aux = vet[j];
+                vet[j] = vet[j + 1];
+                vet[j + 1] = aux;
+            }
+        }
+    }
+}
+void ArvBinBusca::transfABemABB()
+{
+    int nNosArv = getNumNos();
+    int nNosVetArv = 0;
+    int *vet = new int[nNosArv];
+    copiaNosParaVetor(raiz, vet, &nNosVetArv);
+    organizaVetor(vet, nNosArv);
+
+    libera(raiz);
+    auxInsereDoVetorCompleta(0, nNosArv, vet);
+}

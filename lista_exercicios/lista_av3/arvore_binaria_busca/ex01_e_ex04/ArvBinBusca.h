@@ -24,6 +24,15 @@ public:
     int nNosK(int k);
     int altura();
     bool eCompleta();
+    int *insereVetorCrescente(int *n);
+    int *insereVetorDecrescente(int *n);
+    bool buscaValorBool(int val);
+    int classificaNo(int val);
+    void insereNR(int val);
+    int nos1Filho();
+    int nos2Filhos();
+    bool estritamenteBin();
+    void transfABemABB();
 
 private:
     NoArv *raiz; // ponteiro para o No raiz da �rvore
@@ -45,6 +54,12 @@ private:
     void auxInsereDoVetorCompleta(int ind, int tam, int *vet);
     int auxAltura(NoArv *p);
     int auxNNosK(NoArv *p, int k);
+    void auxInsereVetorCrescente(NoArv *p, int *vet, int *numVet);
+    void auxInsereVetorDecrescente(NoArv *p, int *vet, int *numVet);
+    NoArv *buscaValor(int val);
+    int auxNos1Filho(NoArv *p);
+    int auxNos2Filhos(NoArv *p);
+    bool auxEstritamenteBin(NoArv *p);
 };
 
 #endif // ARVBINBUSCA_H_INCLUDED
