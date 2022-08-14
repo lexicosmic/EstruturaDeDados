@@ -223,7 +223,7 @@ int main()
      // cout << endl;
 
      // Ex04 - E.II
-     int vet[5] = {4, 7, 34, 67, 98};
+     int vet[5] = {2, 13, 22, 47, 66};
      int numVet = 5;
      arvVazia.insereDoVetorCompleta(numVet, vet);
      arv1No.insereDoVetorCompleta(numVet, vet);
@@ -253,6 +253,15 @@ int main()
      cout << endl
           << "Nao ABB: " << endl;
      arvNaoAbb.imprime();
+     cout << endl;
+     cout << "Eh Completa" << endl;
+     cout << "Vazia: " << boolalpha << arvVazia.eCompleta() << endl;
+     cout << "1 no: " << boolalpha << arv1No.eCompleta() << endl;
+     cout << "1 folha: " << boolalpha << arv1Folha.eCompleta() << endl;
+     cout << "Completa: " << boolalpha << arvCompleta.eCompleta() << endl;
+     cout << "Cheia: " << boolalpha << arvCheia.eCompleta() << endl;
+     cout << "Torta: " << boolalpha << arvTorta.eCompleta() << endl;
+     cout << "Nao ABB: " << boolalpha << arvNaoAbb.eCompleta() << endl;
      cout << endl;
 
      return 0;

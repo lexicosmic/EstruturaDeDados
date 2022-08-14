@@ -21,6 +21,9 @@ public:
     void insereDoVetorDegenerada(int n, int *vet);
     void insereDoVetorCompleta(int n, int *vet);
     int getNumNos();
+    int nNosK(int k);
+    int altura();
+    bool eCompleta();
 
 private:
     NoArv *raiz; // ponteiro para o No raiz da �rvore
@@ -39,7 +42,9 @@ private:
     void auxImprimeDecrescente(NoArv *p);
     int auxGetNumNos(NoArv *p);
     void copiaNosParaVetor(NoArv *p, int *vet, int *n);
-    NoArv *auxInsereDoVetorCompleta(int ind, int tam, int *vet);
+    void auxInsereDoVetorCompleta(int ind, int tam, int *vet);
+    int auxAltura(NoArv *p);
+    int auxNNosK(NoArv *p, int k);
 };
 
 #endif // ARVBINBUSCA_H_INCLUDED

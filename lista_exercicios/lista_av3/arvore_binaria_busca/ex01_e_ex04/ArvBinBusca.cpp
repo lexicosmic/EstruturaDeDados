@@ -160,6 +160,7 @@ NoArv *ArvBinBusca::libera(NoArv *p)
         delete p;
         p = NULL;
     }
+    raiz = NULL;
     return p;
 }
 
@@ -309,7 +310,7 @@ void concatenaVetoresCrescente(int *novoVet, int numVet, int *vetAux, int numVet
     int j = 0;
     for (int i = 0; i < numVet + j; i++)
     {
-        if (vetAux[j] < novoVet[i])
+        if (j < numVetAux && vetAux[j] < novoVet[i])
         {
             for (int k = numVet + j; k > i; k--)
             {
@@ -350,17 +351,53 @@ void ArvBinBusca::insereDoVetorDegenerada(int n, int *vet)
     }
 }
 
-// Ex04 - E.II -> 43 minutos e 52 segundos
-NoArv *ArvBinBusca::auxInsereDoVetorCompleta(int ind, int tam, int *vet)
+// Ex04 - E.II -> 1 hora, 26 minutos e 21 segundos
+int ArvBinBusca::auxAltura(NoArv *p)
 {
-    if (ind == tam - 1)
-        return NULL;
-    int media = tam / 2;
-    NoArv *novo = new NoArv;
-    novo->setInfo(vet[media]);
-    novo->setEsq(auxInsereDoVetorCompleta(0, media - 1, vet));
-    novo->setDir(auxInsereDoVetorCompleta(media, tam, vet));
-    return novo;
+    int hEsq, hDir;
+    if (p == NULL)
+        return -1;
+
+    hEsq = auxAltura(p->getEsq());
+    hDir = auxAltura(p->getDir());
+
+    return 1 + max(hEsq, hDir);
+}
+int ArvBinBusca::altura() { return auxAltura(raiz); };
+int ArvBinBusca::auxNNosK(NoArv *p, int k)
+{
+    if (p == NULL)
+        return 0;
+    else
+    {
+        if (k == 0)
+            return 1;
+        else
+        {
+            int numNos = 0;
+            int nEsq = (auxNNosK(p->getEsq(), k - 1));
+            int nDir = (auxNNosK(p->getDir(), k - 1));
+            return nEsq + nDir;
+        }
+    }
+}
+int ArvBinBusca::nNosK(int k) { return auxNNosK(raiz, k); }
+bool ArvBinBusca::eCompleta()
+{
+    int h = altura();
+    int numNosPenultNiv = nNosK(h - 1);
+    int numNosEsperado = powf(2, h - 1);
+    return (numNosPenultNiv == numNosEsperado);
+}
+void ArvBinBusca::auxInsereDoVetorCompleta(int ind, int tam, int *vet)
+{
+    int media = (ind + tam) / 2;
+    if (media != tam)
+    {
+        insere(vet[media]);
+        auxInsereDoVetorCompleta(ind, media, vet);
+        auxInsereDoVetorCompleta(media + 1, tam, vet);
+    }
 }
 void ArvBinBusca::insereDoVetorCompleta(int n, int *vet)
 {
@@ -372,5 +409,5 @@ void ArvBinBusca::insereDoVetorCompleta(int n, int *vet)
     concatenaVetoresCrescente(novoVet, nNosArv, vet, n);
 
     libera(raiz);
-    raiz = auxInsereDoVetorCompleta(0, tamMax, novoVet);
+    auxInsereDoVetorCompleta(0, tamMax, novoVet);
 }
