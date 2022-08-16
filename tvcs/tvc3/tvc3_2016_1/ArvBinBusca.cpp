@@ -29,7 +29,28 @@ bool ArvBinBusca::ehEstritamente()
 // ----------------------------------------------------------------------------
 
 // ----------------------------------------------------------------------------
-// Q2 -> 18 minutos e 46 segundos
+// Q2 -> 18 minutos e 52 segundos
+void ArvBinBusca::auxMaisProximo(No *p, int ch, int *dif, int *val)
+{
+    if (p == NULL)
+        return;
+    int info = p->getInfo();
+    if (info == ch)
+    {
+        cout << "encontrado, ";
+        return;
+    }
+    if (ch < *val)
+        auxMaisProximo(p->getEsq(), ch, dif, val);
+    int diferencaAtual = abs(info - ch);
+    if (diferencaAtual < *dif)
+    {
+        *val = info;
+        *dif = diferencaAtual;
+    }
+    if (ch >= *val)
+        auxMaisProximo(p->getDir(), ch, dif, val);
+}
 void ArvBinBusca::maisProximo(int ch)
 {
     if (raiz == NULL)
@@ -37,30 +58,9 @@ void ArvBinBusca::maisProximo(int ch)
         cout << "Arvore vazia!" << endl;
         return;
     }
-    No *p = raiz;
-    int info = p->getInfo();
-    int anterior = info;
-    while (p != NULL)
-    {
-        anterior = info;
-        info = p->getInfo();
-        if (ch < info)
-        {
-            p = p->getEsq();
-        }
-        else if (ch > info)
-        {
-            p = p->getDir();
-        }
-        else
-        {
-            cout << "encontrado, ";
-            break;
-        }
-    }
-    int maisProx = anterior;
-    if (abs(info - ch) < abs(anterior - ch))
-        maisProx = info;
+    int maisProx = raiz->getInfo();
+    int diferenca = abs(maisProx - ch);
+    auxMaisProximo(raiz, ch, &diferenca, &maisProx);
     cout << "valor = " << maisProx << ", diferenca = " << abs(maisProx - ch) << endl;
 }
 //-Q2

@@ -39,6 +39,8 @@ int main()
     // TESTE DA QUESTAO 2 -----------------------------------------------------
     cout << endl
          << "TESTE DA QUESTAO 2" << endl;
+    abb.imprime();
+
     int prox = 47;
     cout << "Valor mais proximo de " << prox << ":\n";
     abb.maisProximo(prox);
