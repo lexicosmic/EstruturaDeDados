@@ -94,14 +94,14 @@ void ArvBinBusca::auxImprimePorNivel(NoArv *p, int k)
     NoArv *dir = p->getDir();
     int info = p->getInfo();
 
-    auxImprimePorNivel(esq, k + 1);
+    auxImprimePorNivel(dir, k + 1);
     cout << "(" << k << ")";
     for (int i = 0; i < k; i++)
     {
         cout << "\t";
     }
     cout << info << endl;
-    auxImprimePorNivel(dir, k + 1);
+    auxImprimePorNivel(esq, k + 1);
 }
 void ArvBinBusca::imprimePorNivel()
 {
